@@ -12,14 +12,5 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SellApplicationTests {
 
-    @Autowired
-    private ProductCategoryRepository repository;
-
-    @Test
-    public void findOneTest() {
-     ProductCategory pc = repository.findOne(1);
-     System.out.println(pc.toString());
-
-    }
 
 }
