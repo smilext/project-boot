@@ -1,6 +1,7 @@
 package com.dlmu.sell.server;
 
 import com.dlmu.sell.dataobject.ProductInfo;
+import dto.CartDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,7 @@ public interface ProductService {
 
      ProductInfo save(ProductInfo productInfo);
     //加库存
+    void incresaStock(List<CartDTO> cartDTOList);
     //减库存
+    void decreaseStock(List<CartDTO> cartDTOList);
 }
