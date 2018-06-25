@@ -5,6 +5,7 @@ import com.dlmu.sell.dao.OrderMasterRepository;
 import com.dlmu.sell.dataobject.OrderDetail;
 import com.dlmu.sell.dataobject.OrderMaster;
 import com.dlmu.sell.enums.OrderStatusEnum;
+import com.dlmu.sell.enums.PayStatusEnum;
 import com.dlmu.sell.enums.ResultEnum;
 import com.dlmu.sell.exception.SellException;
 import dto.OrderDTO;
@@ -91,9 +92,17 @@ public class OrderServiceImplTest {
 
     @Test
     public void finish() {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(),result.getOrderStatus());
+
     }
 
     @Test
     public void paid() {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.paid(orderDTO);
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(),result.getPayStatus());
+
     }
 }

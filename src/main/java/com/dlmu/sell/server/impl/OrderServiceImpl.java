@@ -24,7 +24,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.rmi.CORBA.Util;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -149,16 +148,47 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderDTO finish(OrderDTO orderDTO) {
         //判断订单状态
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
+            log.error("【订单完结】 订单状态不正确 ，orderId={},orderStatus={}",orderDTO.getOrderId(),orderDTO.getOrderStatus());
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
         // 修改订单状态
-        return null;
+        orderDTO.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
+        OrderMaster orderMaster = new OrderMaster();
+        BeanUtils.copyProperties(orderDTO,orderMaster);
+        OrderMaster updateResult = orderMasterRepository.save(orderMaster);
+        if (updateResult == null){
+            log.error("【完结订单】更新失败，orderMaster={}",orderMaster);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+
+        return orderDTO;
     }
 
     @Override
     @Transactional
     public OrderDTO paid(OrderDTO orderDTO) {
         //判断订单状态
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
+            log.error("【订单支付】 订单状态不正确 ，orderId={},orderStatus={}",orderDTO.getOrderId(),orderDTO.getOrderStatus());
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
         // 判断支付状态
+        if(!orderDTO.getPayStatus().equals(PayStatusEnum.WAIT.getCode())){
+            log.error("【订单支付】 支付状态不正确 ，orderId={},orderStatus={}",orderDTO.getOrderId(),orderDTO.getOrderStatus());
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
         // 修改支付状态
-        return null;
+        OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setPayStatus(PayStatusEnum.SUCCESS.getCode());
+        BeanUtils.copyProperties(orderDTO,orderMaster);
+        OrderMaster updateResult = orderMasterRepository.save(orderMaster);
+        if (updateResult == null){
+            log.error("【订单支付完成】更新失败，orderMaster={}",orderMaster);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+
+        return orderDTO;
     }
 }
