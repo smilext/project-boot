@@ -3,6 +3,7 @@ package dto;
 import com.dlmu.sell.dataobject.OrderDetail;
 import com.dlmu.sell.enums.OrderStatusEnum;
 import com.dlmu.sell.enums.PayStatusEnum;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.Id;
