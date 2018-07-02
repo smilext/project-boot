@@ -47,12 +47,13 @@ public class ProductServiceImplTest {
     public void save() {
         ProductInfo productInfo = new ProductInfo(
                 "12345",
-                "小米粥",new BigDecimal(2.0),
+                "绿豆汤",new BigDecimal(2.0),
                 103,
                 "有营养的粥",
                 "http://xxxss.jpg",
                 ProductStatusEnum.DOWN.getCode(),3);
-        productService.save(productInfo);
+        System.out.println("...................xiaomi");
+                productService.save(productInfo);
 
     }
 }

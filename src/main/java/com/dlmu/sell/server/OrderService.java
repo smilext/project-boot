@@ -1,7 +1,6 @@
 package com.dlmu.sell.server;
 
-import dto.OrderDTO;
-import org.aspectj.weaver.ast.Or;
+import com.dlmu.sell.dto.OrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,6 +17,9 @@ public interface OrderService {
   OrderDTO finish(OrderDTO orderDTO);
   /** 支付订单 **/
   OrderDTO paid(OrderDTO orderDTO);
+
+  /** 查询订单列表 **/
+  Page<OrderDTO> findList(Pageable pageable);
 
 
 }

@@ -7,7 +7,7 @@ import com.dlmu.sell.enums.ProductStatusEnum;
 import com.dlmu.sell.enums.ResultEnum;
 import com.dlmu.sell.exception.SellException;
 import com.dlmu.sell.server.ProductService;
-import dto.CartDTO;
+import com.dlmu.sell.dto.CartDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class ProductServiceImpl implements ProductService {

@@ -1,7 +1,7 @@
 package com.dlmu.sell.converter;
 
 import com.dlmu.sell.dataobject.OrderMaster;
-import dto.OrderDTO;
+import com.dlmu.sell.dto.OrderDTO;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;

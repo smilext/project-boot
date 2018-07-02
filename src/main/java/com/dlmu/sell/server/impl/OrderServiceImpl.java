@@ -13,8 +13,8 @@ import com.dlmu.sell.exception.SellException;
 import com.dlmu.sell.server.OrderService;
 import com.dlmu.sell.server.ProductService;
 import com.dlmu.sell.utils.KeyUtil;
-import dto.CartDTO;
-import dto.OrderDTO;
+import com.dlmu.sell.dto.CartDTO;
+import com.dlmu.sell.dto.OrderDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderDetailRepository orderDetailRepository;
     @Autowired
     private OrderMasterRepository orderMasterRepository;
+
+
     @Override
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
@@ -190,5 +192,13 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return orderDTO;
+    }
+
+    @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
+        List<OrderDTO> orderDTOList = OrderMaster2orderDTOConverter.convert(  orderMasterPage.getContent());
+        Page<OrderDTO> orderDTOPage = new PageImpl<OrderDTO>(orderDTOList,pageable,orderMasterPage.getTotalElements());
+        return orderDTOPage;
     }
 }

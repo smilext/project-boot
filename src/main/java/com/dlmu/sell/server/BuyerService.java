@@ -1,6 +1,6 @@
 package com.dlmu.sell.server;
 
-import dto.OrderDTO;
+import com.dlmu.sell.dto.OrderDTO;
 
 public interface BuyerService {
     //查询一个订单

@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ import java.util.Date;
 @DynamicUpdate
 public class OrderMaster {
     @Id
+    @GeneratedValue
     private  String orderId;
 
     private  String buyerName;

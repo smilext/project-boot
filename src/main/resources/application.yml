@@ -8,5 +8,9 @@ spring:
     shw-sql: true
   jackson:
     default-property-inclusion: non_null
+  freemarker:
+    cache: false
 server:
-  context-path: /sell
+  port: 8080
+  servlet:
+    context-path: /sell

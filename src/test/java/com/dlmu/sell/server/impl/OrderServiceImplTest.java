@@ -1,32 +1,25 @@
 package com.dlmu.sell.server.impl;
 
+import com.dlmu.sell.converter.OrderFrom2OrderDTOConverter;
 import com.dlmu.sell.dao.OrderDetailRepository;
 import com.dlmu.sell.dao.OrderMasterRepository;
 import com.dlmu.sell.dataobject.OrderDetail;
-import com.dlmu.sell.dataobject.OrderMaster;
 import com.dlmu.sell.enums.OrderStatusEnum;
 import com.dlmu.sell.enums.PayStatusEnum;
-import com.dlmu.sell.enums.ResultEnum;
-import com.dlmu.sell.exception.SellException;
-import dto.OrderDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.logging.Log;
-import org.hibernate.criterion.Order;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.CollectionUtils;
+import com.dlmu.sell.dto.OrderDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
@@ -43,7 +36,7 @@ public class OrderServiceImplTest {
     private final String ORDER_ID="1529391481927225392";
     @Test
     public void create() {
-        OrderDTO orderDTO = new OrderDTO();
+       OrderDTO  orderDTO = new OrderDTO();
         orderDTO.setBuyerName("wxt");
         orderDTO.setBuyerAddress("DLMU");
         orderDTO.setBuyerOpenid(BUYER_OPENID);
@@ -105,4 +98,12 @@ public class OrderServiceImplTest {
         Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(),result.getPayStatus());
 
     }
+
+    @Test
+    public void list(){
+        PageRequest request = new PageRequest(0,2);
+        Page<OrderDTO> orderDTOPage = orderService.findList(request);
+        Assert.assertNotEquals(0,orderDTOPage.getTotalElements());
+    }
+
 }

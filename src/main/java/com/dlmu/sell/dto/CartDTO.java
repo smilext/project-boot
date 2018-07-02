@@ -1,7 +1,6 @@
-package dto;
+package com.dlmu.sell.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class CartDTO {
